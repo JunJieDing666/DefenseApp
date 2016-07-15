@@ -79,7 +79,52 @@ public class HomeActivity extends Activity {
     }
 
     private void showConfirmPsdDialog() {
+        //创建对话框
+        final AlertDialog dialog = new AlertDialog.Builder(this).create();
+        //因为对话框的样式需要自己设定，所以调用setView()方法
+        final View view = View.inflate(this, R.layout.dialog_confirm_psd, null);
+        dialog.setView(view);
+        dialog.show();
 
+        //设置对话框按钮的点击事件
+        Button bt_submit = (Button) view.findViewById(R.id.bt_submit);
+        Button bt_cancel = (Button) view.findViewById(R.id.bt_cancel);
+
+        //确认键的点击事件
+        bt_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et_confirm_psd = (EditText) view.findViewById(R.id.et_confirm_psd);
+
+                String confirmPsd = et_confirm_psd.getText().toString();
+
+                String psd = SpUtils.getString(getApplicationContext(), ConstantValue.DEFENSE_PSD, "");
+
+                if (!TextUtils.isEmpty(confirmPsd)) {
+                    if (psd.equals(confirmPsd)) {
+                        //进入手机防盗模块
+                        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        startActivity(intent);
+                        //防止按返回键后对话框还在，需要解散对话框
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "确认密码错误", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    //弹出吐司指出错误
+                    Toast.makeText(getApplicationContext(), "请输入密码", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        //取消键的点击事件
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private void showSetPsdDialog() {
@@ -111,13 +156,15 @@ public class HomeActivity extends Activity {
                         startActivity(intent);
                         //防止按返回键后对话框还在，需要解散对话框
                         dialog.dismiss();
-                    } else {
-                        Toast.makeText(getApplicationContext(),"确认密码错误",Toast.LENGTH_SHORT).show();
 
+                        //将用户设置的密码存储在sp中
+                        SpUtils.putString(getApplicationContext(), ConstantValue.DEFENSE_PSD, psd);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "确认密码错误", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     //弹出吐司指出错误
-                    Toast.makeText(getApplicationContext(),"请输入密码",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "请输入密码", Toast.LENGTH_SHORT).show();
                 }
 
             }

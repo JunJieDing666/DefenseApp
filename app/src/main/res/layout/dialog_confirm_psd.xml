@@ -7,20 +7,13 @@
     <TextView
         style="@style/TitleStyle"
         android:background="#fa3232"
-        android:text="设置密码" />
-
-    <EditText
-        android:id="@+id/et_set_psd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入密码"
-        android:password="true" />
+        android:text="确认密码" />
 
     <EditText
         android:id="@+id/et_confirm_psd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请确认密码"
+        android:hint="请输入密码"
         android:password="true" />
 
     <LinearLayout
