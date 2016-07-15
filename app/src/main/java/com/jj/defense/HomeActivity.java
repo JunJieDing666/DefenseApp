@@ -1,17 +1,25 @@
 package com.jj.defense;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jj.defense.Activity.SettingActivity;
+import com.jj.defense.Activity.TestActivity;
+import com.jj.defense.Utils.ConstantValue;
+import com.jj.defense.Utils.SpUtils;
 
 /**
  * Created by Administrator on 2016/7/4.
@@ -45,8 +53,9 @@ public class HomeActivity extends Activity {
         gv_home.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     case 0:
+                        showDialog();
                         break;
                     case 8:
                         Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
@@ -55,6 +64,73 @@ public class HomeActivity extends Activity {
                 }
             }
         });
+    }
+
+    protected void showDialog() {
+        //判断sp是否已经存储了密码
+        String psd = SpUtils.getString(this, ConstantValue.DEFENSE_PSD, "");
+        if (TextUtils.isEmpty(psd)) {
+            //弹出设置密码对话框
+            showSetPsdDialog();
+        } else {
+            //弹出确认密码对话框
+            showConfirmPsdDialog();
+        }
+    }
+
+    private void showConfirmPsdDialog() {
+
+    }
+
+    private void showSetPsdDialog() {
+        //创建对话框
+        final AlertDialog dialog = new AlertDialog.Builder(this).create();
+        //因为对话框的样式需要自己设定，所以调用setView()方法
+        final View view = View.inflate(this, R.layout.dialog_set_psd, null);
+        dialog.setView(view);
+        dialog.show();
+
+        //设置对话框按钮的点击事件
+        Button bt_submit = (Button) view.findViewById(R.id.bt_submit);
+        Button bt_cancel = (Button) view.findViewById(R.id.bt_cancel);
+
+        //确认键的点击事件
+        bt_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et_set_psd = (EditText) view.findViewById(R.id.et_set_psd);
+                EditText et_confirm_psd = (EditText) view.findViewById(R.id.et_confirm_psd);
+
+                String psd = et_set_psd.getText().toString();
+                String confirmPsd = et_confirm_psd.getText().toString();
+
+                if (!TextUtils.isEmpty(psd) && !TextUtils.isEmpty(confirmPsd)) {
+                    if (psd.equals(confirmPsd)) {
+                        //进入手机防盗模块
+                        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        startActivity(intent);
+                        //防止按返回键后对话框还在，需要解散对话框
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(getApplicationContext(),"确认密码错误",Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    //弹出吐司指出错误
+                    Toast.makeText(getApplicationContext(),"请输入密码",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        //取消键的点击事件
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
     }
 
     private void initUI() {
