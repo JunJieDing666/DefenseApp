@@ -17,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jj.defense.Activity.SettingActivity;
+import com.jj.defense.Activity.SetupOverActivity;
 import com.jj.defense.Activity.TestActivity;
 import com.jj.defense.Utils.ConstantValue;
+import com.jj.defense.Utils.Md5Utils;
 import com.jj.defense.Utils.SpUtils;
 
 /**
@@ -101,9 +103,10 @@ public class HomeActivity extends Activity {
                 String psd = SpUtils.getString(getApplicationContext(), ConstantValue.DEFENSE_PSD, "");
 
                 if (!TextUtils.isEmpty(confirmPsd)) {
-                    if (psd.equals(confirmPsd)) {
+                    if (psd.equals(Md5Utils.encode(confirmPsd))) {
                         //进入手机防盗模块
-                        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        //Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), SetupOverActivity.class);
                         startActivity(intent);
                         //防止按返回键后对话框还在，需要解散对话框
                         dialog.dismiss();
@@ -152,13 +155,14 @@ public class HomeActivity extends Activity {
                 if (!TextUtils.isEmpty(psd) && !TextUtils.isEmpty(confirmPsd)) {
                     if (psd.equals(confirmPsd)) {
                         //进入手机防盗模块
-                        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        //Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), SetupOverActivity.class);
                         startActivity(intent);
                         //防止按返回键后对话框还在，需要解散对话框
                         dialog.dismiss();
 
                         //将用户设置的密码存储在sp中
-                        SpUtils.putString(getApplicationContext(), ConstantValue.DEFENSE_PSD, psd);
+                        SpUtils.putString(getApplicationContext(), ConstantValue.DEFENSE_PSD, Md5Utils.encode(psd));
                     } else {
                         Toast.makeText(getApplicationContext(), "确认密码错误", Toast.LENGTH_SHORT).show();
                     }

@@ -12,4 +12,8 @@ public class ConstantValue {
      *是否设置密码的key
      */
     public static final String DEFENSE_PSD = "defense_psd";
+    /**
+     * 是否已经设置完成
+     */
+    public static final String SETUP_OVER = "setup_over";
 }

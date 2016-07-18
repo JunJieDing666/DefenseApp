@@ -22,8 +22,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".Activity.SettingActivity"/>
-        <activity android:name=".Activity.TestActivity"/>
+        <activity android:name=".Activity.SettingActivity" />
+        <activity android:name=".Activity.TestActivity" />
+        <activity android:name=".Activity.SetupOverActivity" />
+        <activity android:name=".Activity.Setup1Activity" />
     </application>
 
 </manifest>
