@@ -21,6 +21,43 @@
 
     </style>
 
+    <!--        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="3dp"
+            android:background="@drawable/selector_next_btn_bg"
+            android:onClick="nextPage"
+            android:text="下一步" />
+    -->
+    <style name="preBtn">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:background">@drawable/selector_next_btn_bg</item>
+        <item name="android:onClick">prePage</item>
+        <item name="android:text">上一步</item>
+
+    </style>
+
+    <style name="nextBtn">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:background">@drawable/selector_next_btn_bg</item>
+        <item name="android:onClick">nextPage</item>
+        <item name="android:text">下一步</item>
+
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

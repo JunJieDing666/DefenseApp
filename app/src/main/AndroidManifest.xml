@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +27,9 @@
         <activity android:name=".Activity.TestActivity" />
         <activity android:name=".Activity.SetupOverActivity" />
         <activity android:name=".Activity.Setup1Activity" />
+        <activity android:name=".Activity.Setup2Activity" />
+        <activity android:name=".Activity.Setup3Activity" />
+        <activity android:name=".Activity.Setup4Activity" />
     </application>
 
 </manifest>

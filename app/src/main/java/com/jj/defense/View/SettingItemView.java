@@ -60,6 +60,9 @@ public class SettingItemView extends RelativeLayout{
         return cb_box.isChecked();
     }
 
+    /**
+     * @param isCheck 作为是否开启的标志变量，在点击事件中去传递
+     */
     public void setCheck(Boolean isCheck){
         //当前条目在选择状态中，cb_box的选中状态应跟着改变
         cb_box.setChecked(isCheck);

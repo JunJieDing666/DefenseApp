@@ -16,4 +16,8 @@ public class ConstantValue {
      * 是否已经设置完成
      */
     public static final String SETUP_OVER = "setup_over";
+    /**
+     * 是否存储了sim卡序列号
+     */
+    public static final String SIM_NUM = "sim_num";
 }

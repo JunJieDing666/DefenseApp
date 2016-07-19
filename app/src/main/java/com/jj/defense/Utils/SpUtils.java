@@ -73,4 +73,16 @@ public class SpUtils {
         return sp.getString(key, defValue);
     }
 
+    /**
+     *  从sp中指定节点删除
+     * @param ctx   上下文
+     * @param key   删除节点的名称
+     */
+    public static void remove(Context ctx,String key) {
+        //判断sp对象是否已经存在
+        if (sp == null) {
+            sp = ctx.getSharedPreferences("config", Context.MODE_PRIVATE);
+        }
+        sp.edit().remove(key).commit();
+    }
 }

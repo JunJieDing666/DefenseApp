@@ -4,78 +4,56 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <TextView
         style="@style/TitleStyle"
-        android:text="欢迎使用手机防盗" />
+        android:text="设置安全号码" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:gravity="center_vertical"
-        android:text="您的手机防盗卫士具有以下功能:"
+        android:text="SIM卡变更后:\n    就会发送报警短信给安全号码"
         android:textColor="#000"
         android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/et_phone_num"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center_vertical"
-        android:text="sim卡变更警报"
-        android:textColor="#000"
-        android:textSize="18sp" />
+        android:layout_margin="5dp"
+        android:hint="请输入电话号码" />
 
-    <TextView
+    <Button
+        android:id="@+id/btn_select_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center_vertical"
-        android:text="GPS追踪"
-        android:textColor="#000"
-        android:textSize="18sp" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:background="@drawable/selector_setup3_btn_bg" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center_vertical"
-        android:text="远程数据销毁"
-        android:textColor="#000"
-        android:textSize="18sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center_vertical"
-        android:text="远程锁屏"
-        android:textColor="#000"
-        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:gravity="center_horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:drawable/presence_invisible" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/presence_invisible" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@android:drawable/presence_online" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/presence_invisible" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/presence_invisible" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -93,7 +71,10 @@
             android:layout_centerInParent="true"
             android:background="@drawable/security_phone" />
 
+        <Button style="@style/preBtn" />
+
         <Button style="@style/nextBtn" />
+
 
     </RelativeLayout>
 
