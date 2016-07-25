@@ -18,7 +18,7 @@ import com.jj.defense.View.SettingItemView;
 /**
  * Created by Administrator on 2016/7/19.
  */
-public class Setup2Activity extends Activity {
+public class Setup2Activity extends BaseSetupActivity {
     private SettingItemView siv_sim_bound = null;
 
     @Override
@@ -27,6 +27,26 @@ public class Setup2Activity extends Activity {
         setContentView(R.layout.activity_setup2);
 
         initUI();
+    }
+
+    @Override
+    public void showPre() {
+        Intent intent = new Intent(getApplicationContext(), Setup1Activity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.pre_in_anim, R.anim.pre_out_anim);
+    }
+
+    @Override
+    public void showNext() {
+        if (siv_sim_bound.isCheck()) {
+            Intent intent = new Intent(getApplicationContext(), Setup3Activity.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.next_in_anim, R.anim.next_out_anim);
+        } else {
+            Toast.makeText(this, "请绑定序列卡号", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initUI() {
@@ -62,21 +82,5 @@ public class Setup2Activity extends Activity {
         });
     }
 
-    public void prePage(View view) {
-        Intent intent = new Intent(getApplicationContext(), Setup1Activity.class);
-        startActivity(intent);
-        finish();
-    }
-
-
-    public void nextPage(View view) {
-        if (siv_sim_bound.isCheck()) {
-            Intent intent = new Intent(getApplicationContext(), Setup3Activity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(this, "请绑定序列卡号", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 }

@@ -1,14 +1,15 @@
 package com.jj.defense.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 public class ContactListActivity extends Activity {
     private ListView lv_contact = null;
+    private MyAdapter myAdapter = null;
     //用哈希表做List的成员
     private List<HashMap<String, String>> contactList = new ArrayList<HashMap<String, String>>();
 
@@ -31,7 +33,7 @@ public class ContactListActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             //8.填充数据适配器
-            MyAdapter myAdapter = new MyAdapter();
+            myAdapter = new MyAdapter();
             lv_contact.setAdapter(myAdapter);
         }
     };
@@ -100,7 +102,7 @@ public class ContactListActivity extends Activity {
                     String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                     //Log.w("message", displayName);
                     HashMap<String, String> hashMap = new HashMap<String, String>();
-                    hashMap.put("name",displayName);
+                    hashMap.put("name", displayName);
                     hashMap.put("phone", number);
                     contactList.add(hashMap);
                 }
@@ -115,6 +117,24 @@ public class ContactListActivity extends Activity {
 
     private void initUI() {
         lv_contact = (ListView) findViewById(R.id.lv_contact);
+
+        //设置列表框条目点击事件
+        lv_contact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (myAdapter != null){
+                    //获取点击条目所对应的哈希表对象
+                    HashMap<String, String> hashMap = myAdapter.getItem(position);
+                    //从该对象读取电话
+                    String phone = hashMap.get("phone");
+                    //在此界面结束时将该电话返回给导航界面3
+                    Intent intent = new Intent();
+                    intent.putExtra("phone",phone);
+                    setResult(0,intent);
+                    finish();
+                }
+            }
+        });
     }
 
     class MyAdapter extends BaseAdapter {

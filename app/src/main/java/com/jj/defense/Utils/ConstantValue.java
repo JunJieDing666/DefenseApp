@@ -20,4 +20,12 @@ public class ConstantValue {
      * 是否存储了sim卡序列号
      */
     public static final String SIM_NUM = "sim_num";
+    /**
+     * 选中联系人对应电话号码的key
+     */
+    public static final String PHONE_NUM = "phone_num";
+    /**
+     * 是否开启防盗保护的key
+     */
+    public static final String OPEN_DEFENSE = "open_defense";
 }
