@@ -38,6 +38,8 @@
         <activity android:name=".Activity.Setup3Activity" />
         <activity android:name=".Activity.Setup4Activity" />
         <activity android:name=".Activity.ContactListActivity" />
+        <activity android:name=".Activity.AToolActivity" />
+        <activity android:name=".Activity.QueryAddressActivity" />
 
         <receiver android:name=".Receiver.BootReceiver">
             <intent-filter>

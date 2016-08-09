@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jj.defense.Activity.AToolActivity;
 import com.jj.defense.Activity.SettingActivity;
 import com.jj.defense.Activity.SetupOverActivity;
 import com.jj.defense.Activity.TestActivity;
@@ -58,6 +59,9 @@ public class HomeActivity extends Activity {
                 switch (position) {
                     case 0:
                         showDialog();
+                        break;
+                    case 7:
+                        startActivity(new Intent(getApplicationContext(), AToolActivity.class));
                         break;
                     case 8:
                         Intent intent = new Intent(getApplicationContext(), SettingActivity.class);

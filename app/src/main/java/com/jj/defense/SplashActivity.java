@@ -15,6 +15,11 @@ import com.jj.defense.Utils.ConstantValue;
 import com.jj.defense.Utils.SpUtils;
 import com.jj.defense.Utils.VersionUpdateUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class SplashActivity extends AppCompatActivity {
     /*应用的版本号*/
     private TextView mVersionTV;
@@ -23,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private String tag = "SplashActivity";
 
-    private RelativeLayout rl_root =null;
+    private RelativeLayout rl_root = null;
 
     private final VersionUpdateUtils updateUtils = new VersionUpdateUtils(mVersion, SplashActivity.this);
 
@@ -38,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                if (SpUtils.getBoolean(getApplicationContext(), ConstantValue.OPEN_UPDATE,false)){
+                if (SpUtils.getBoolean(getApplicationContext(), ConstantValue.OPEN_UPDATE, false)) {
                     //获取服务器版本号
                     updateUtils.getCloudVersion();
                 } else {
@@ -46,9 +51,66 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         }).start();
+        //初始化UI动画
         initUI();
+        //初始化数据库文件
+        initDB();
     }
 
+    /**
+     * 初始化数据库文件
+     */
+    private void initDB() {
+        //初始化归属地数据库
+        initAddressDB("address.db");
+    }
+
+    /**
+     * 将数据库拷贝到files文件夹下
+     *
+     * @param dbName 数据库的名称
+     */
+    private void initAddressDB(String dbName) {
+        //1.在files文件夹下创建同名文件
+        File files = getFilesDir();
+        File file = new File(files, dbName);
+        //如果已经存在该文件则不接下去执行代码
+        if (file.exists()) {
+            return;
+        }
+
+        InputStream is = null;
+        FileOutputStream fos = null;
+        //2.读取第三方资产下的数据库文件
+        try {
+            is = getAssets().open(dbName);
+            //3.将读取的文件写入指定文件中
+            fos = new FileOutputStream(file);
+            //4.每次读取的内容大小
+            byte[] bs = new byte[1024];
+            //记录下读取的大小
+            int temp = -1;
+            while ((temp = is.read(bs)) != -1) {
+                fos.write(bs, 0, temp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null && fos != null) {
+                try {
+                    is.close();
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    /**
+     * 初始化UI动画
+     */
     private void initUI() {
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
         alphaAnimation.setDuration(2000);
@@ -76,7 +138,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     /**
-     * 初始化UI
+     * 初始化界面
      */
     private void initView() {
         mVersionTV = (TextView) findViewById(R.id.tv_splash_version);

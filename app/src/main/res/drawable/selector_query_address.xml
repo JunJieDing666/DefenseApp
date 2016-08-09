@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--按住时显示暗灰色背景-->
+    <item android:drawable="@android:color/darker_gray" android:state_pressed="true" />
+    <!--默认为粉红色背景-->
+    <item android:drawable="@color/pink" />
+</selector>
