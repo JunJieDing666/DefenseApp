@@ -9,7 +9,7 @@ public class ConstantValue {
      */
     public static final String OPEN_UPDATE = "open_update";
     /**
-     *是否设置密码的key
+     * 是否设置密码的key
      */
     public static final String DEFENSE_PSD = "defense_psd";
     /**
@@ -28,4 +28,16 @@ public class ConstantValue {
      * 是否开启防盗保护的key
      */
     public static final String OPEN_DEFENSE = "open_defense";
+    /**
+     * 保存吐司样式索引值的key
+     */
+    public static final String TOAST_STYLE = "toast_style";
+    /**
+     * 记录可拖拽吐司X坐标的key
+     */
+    public static final String LOCATION_X = "location_x";
+    /**
+     * 记录可拖拽吐司Y坐标的key
+     */
+    public static final String LOCATION_Y = "location_y";
 }

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:text="归属地查询"
-        android:padding="5dp"
+        android:padding="10dp"
         android:gravity="center"
         android:background="@drawable/selector_query_address"
         android:drawableLeft="@android:drawable/star_on"/>

@@ -18,10 +18,21 @@
         defense:titledes="自动更新设置:"></com.jj.defense.View.SettingItemView>
 
     <com.jj.defense.View.SettingItemView xmlns:defense="http://schemas.android.com/apk/res/com.jj.defense"
+        android:id="@+id/siv_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         defense:desoff="    归属地显示已关闭"
         defense:deson="    归属地显示已开启"
         defense:titledes="电话归属地显示设置:"></com.jj.defense.View.SettingItemView>
+
+    <com.jj.defense.View.SettingClickView
+        android:id="@+id/scv_toast_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.jj.defense.View.SettingClickView>
+
+    <com.jj.defense.View.SettingClickView
+        android:id="@+id/scv_toast_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.jj.defense.View.SettingClickView>
 
 </LinearLayout>

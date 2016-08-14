@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
 
     <application
@@ -40,6 +42,9 @@
         <activity android:name=".Activity.ContactListActivity" />
         <activity android:name=".Activity.AToolActivity" />
         <activity android:name=".Activity.QueryAddressActivity" />
+        <activity
+            android:name=".Activity.ToastLocationActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <receiver android:name=".Receiver.BootReceiver">
             <intent-filter>
@@ -55,11 +60,13 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".Receiver.DeviceAdmin"
-            android:label="@string/sample_device_admin"
+        <receiver
+            android:name=".Receiver.DeviceAdmin"
             android:description="@string/sample_device_admin_description"
+            android:label="@string/sample_device_admin"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data android:name="android.app.device_admin"
+            <meta-data
+                android:name="android.app.device_admin"
                 android:resource="@xml/device_admin_sample" />
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
@@ -67,6 +74,7 @@
         </receiver>
 
         <service android:name=".Service.LoctionService" />
+        <service android:name=".Service.AddressService" />
     </application>
 
 </manifest>
