@@ -1,8 +1,10 @@
 package com.jj.defense.Service;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.os.IBinder;
@@ -46,6 +48,7 @@ public class AddressService extends Service {
     private int startY;
     private int mScreenWidth;
     private int mScreenHeight;
+    private InnerOutCallReceiver mInnerOutCallReceiver;
 
     @Nullable
     @Override
@@ -69,7 +72,23 @@ public class AddressService extends Service {
         mScreenWidth = mWM.getDefaultDisplay().getWidth();
         mScreenHeight = mWM.getDefaultDisplay().getHeight();
 
+        //监听播出电话的广播过滤器
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
+        //创建广播接受者
+        mInnerOutCallReceiver = new InnerOutCallReceiver();
+        registerReceiver(mInnerOutCallReceiver, intentFilter);
+
         super.onCreate();
+    }
+
+    private class InnerOutCallReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //收到播出电话的广播后接收播出电话并显示归属地吐司
+            String phone = getResultData();
+            showToast(phone);
+        }
     }
 
     class MyPhoneStateListener extends PhoneStateListener {
@@ -157,7 +176,7 @@ public class AddressService extends Service {
                         params.y = params.y + disY;
 
                         //更新吐司的位置
-                        mWM.updateViewLayout(mViewToast,params);
+                        mWM.updateViewLayout(mViewToast, params);
 
                         //吐司框不能出了activity界面
                         if (params.x < 0) {
@@ -211,6 +230,11 @@ public class AddressService extends Service {
         if (mTM != null && myPhoneStateListener != null) {
             mTM.listen(myPhoneStateListener, PhoneStateListener.LISTEN_NONE);
         }
+        if (mInnerOutCallReceiver != null) {
+            //去电广播接收者的注销
+            unregisterReceiver(mInnerOutCallReceiver);
+        }
         super.onDestroy();
     }
+
 }
