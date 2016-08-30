@@ -30,11 +30,11 @@ public class SMSReceiver extends BroadcastReceiver {
         //2.获取短信内容
         if (open_defense) {
             //3.得到pdus短信数组
-            Object[] pdus = (Object[]) intent.getExtras().get("pdus");
-            //4.循环遍历pdus数组
-            for (Object pdu : pdus) {
-                //5.获取其中每条短信的对象
-                SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) pdu);
+                Object[] pdus = (Object[]) intent.getExtras().get("pdus");
+                //4.循环遍历pdus数组
+                for (Object pdu : pdus) {
+                    //5.获取其中每条短信的对象
+                    SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) pdu);
                 //6.获取该条短信的基本内容
                 String originatingAddress = smsMessage.getOriginatingAddress();
                 String messageBody = smsMessage.getMessageBody();

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,11 +37,17 @@ public class BlackNumListActivity extends Activity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            myBlackNumAdapter = new MyBlackNumAdapter();
-            lv_black_num.setAdapter(myBlackNumAdapter);
+            if (myBlackNumAdapter == null) {
+                myBlackNumAdapter = new MyBlackNumAdapter();
+                lv_black_num.setAdapter(myBlackNumAdapter);
+            } else {
+                myBlackNumAdapter.notifyDataSetChanged();
+            }
         }
     };
     private int mode;
+    private boolean isLoading = false;
+    private int mCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +65,11 @@ public class BlackNumListActivity extends Activity {
             public void run() {
                 //1.获得操作黑名单数据库的接口类
                 mBlackNumDao = BlackNumberDao.getInstance(getApplicationContext());
-                //2.查询所有数据
-                mBlackNumberInfoList = mBlackNumDao.queryAll();
+                //2.查询前20条数据
+                mBlackNumberInfoList = mBlackNumDao.query(0);
                 //3.发送空消息告知获取完毕
                 mHandler.sendEmptyMessage(0);
+                mCount = mBlackNumDao.getCount();
             }
         }.start();
     }
@@ -74,6 +82,46 @@ public class BlackNumListActivity extends Activity {
             @Override
             public void onClick(View v) {
                 showDialog();
+            }
+        });
+
+        lv_black_num.setOnScrollListener(new AbsListView.OnScrollListener() {
+            //当滚动状态发生改变时出发
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                //容错性处理
+                if (mBlackNumberInfoList != null) {
+                /*加载下一页
+                * 条件一：状态改变为停止
+                * 条件二：滚动到最底部，即可以看见最后一个条目
+                * 注意：防止重复加载下一页(isLoading正在加载时变为true则进不了加载的循环，加载完毕后再将其设置为false即可进行下一次加载)*/
+                    if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE &&
+                            lv_black_num.getLastVisiblePosition() >= mBlackNumberInfoList.size() - 1 &&
+                            !isLoading) {
+                        //容错性处理，当数据库里的数据多于列表集合中的数据时才可以加载
+                        if (mCount > mBlackNumberInfoList.size()) {
+                            //加载下一页的操作
+                            new Thread() {
+                                @Override
+                                public void run() {
+                                    //1.获得操作黑名单数据库的接口类
+                                    mBlackNumDao = BlackNumberDao.getInstance(getApplicationContext());
+                                    //2.查询所有数据
+                                    List<BlackNumberInfo> moreData = mBlackNumDao.query(mBlackNumberInfoList.size());
+                                    //3.将查询到的更多数据加入集合中
+                                    mBlackNumberInfoList.addAll(moreData);
+                                    //4.发送空消息告知获取完毕
+                                    mHandler.sendEmptyMessage(0);
+                                }
+                            }.start();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
     }

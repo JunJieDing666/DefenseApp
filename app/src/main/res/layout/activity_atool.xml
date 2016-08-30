@@ -18,5 +18,20 @@
         android:gravity="center"
         android:background="@drawable/selector_query_address"
         android:drawableLeft="@android:drawable/star_on"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#8f8e8e"/>
+
+    <TextView
+        android:id="@+id/tv_sms_back_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="短信备份"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="@drawable/selector_query_address"
+        android:drawableLeft="@android:drawable/star_on"/>
 
 </LinearLayout>

@@ -35,4 +35,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></com.jj.defense.View.SettingClickView>
 
+    <com.jj.defense.View.SettingItemView xmlns:defense="http://schemas.android.com/apk/res/com.jj.defense"
+        android:id="@+id/siv_black_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        defense:desoff="    黑名单拦截已关闭"
+        defense:deson="    黑名单拦截已开启"
+        defense:titledes="黑名单拦截设置:"></com.jj.defense.View.SettingItemView>
+
 </LinearLayout>

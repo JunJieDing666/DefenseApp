@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.jj.defense.R;
 import com.jj.defense.Service.AddressService;
+import com.jj.defense.Service.BlackNumberService;
 import com.jj.defense.Utils.ConstantValue;
 import com.jj.defense.Utils.ServiceUtils;
 import com.jj.defense.Utils.SpUtils;
@@ -33,6 +34,31 @@ public class SettingActivity extends Activity {
         initAddress();
         initToastStyle();
         initToastLocation();
+        initBlackNumber();
+    }
+
+    /**
+     * 拦截黑名单电话和短信
+     */
+    private void initBlackNumber() {
+        final SettingItemView siv_black_num = (SettingItemView) findViewById(R.id.siv_black_num);
+        boolean isRunning = ServiceUtils.isRunnig(this, "com.jj.defense.Service.BlackNumberService");
+        siv_black_num.setCheck(isRunning);
+
+        siv_black_num.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isCheck = siv_black_num.isCheck();
+                siv_black_num.setCheck(!isCheck);
+                if (!isCheck) {
+                    //开启服务
+                    startService(new Intent(getApplicationContext(), BlackNumberService.class));
+                } else {
+                    //关闭服务
+                    stopService(new Intent(getApplicationContext(), BlackNumberService.class));
+                }
+            }
+        });
     }
 
     /**
@@ -46,7 +72,7 @@ public class SettingActivity extends Activity {
         scv_toast_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ToastLocationActivity.class));
+                startActivity(new Intent(getApplicationContext(), ToastLocationActivity.class));
             }
         });
     }
