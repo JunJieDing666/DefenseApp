@@ -12,26 +12,59 @@
         android:id="@+id/tv_query_phone_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="归属地查询"
-        android:padding="10dp"
-        android:gravity="center"
         android:background="@drawable/selector_query_address"
-        android:drawableLeft="@android:drawable/star_on"/>
+        android:drawableLeft="@android:drawable/star_on"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="归属地查询"
+        android:textSize="18sp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#8f8e8e"/>
+        android:background="#8f8e8e" />
 
     <TextView
         android:id="@+id/tv_sms_back_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="短信备份"
-        android:padding="10dp"
-        android:gravity="center"
         android:background="@drawable/selector_query_address"
-        android:drawableLeft="@android:drawable/star_on"/>
+        android:drawableLeft="@android:drawable/star_on"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="短信备份"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#8f8e8e" />
+
+    <TextView
+        android:id="@+id/tv_common_num_query"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_query_address"
+        android:drawableLeft="@android:drawable/star_on"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="常用号码查询"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#8f8e8e" />
+
+    <TextView
+        android:id="@+id/tv_app_lock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_query_address"
+        android:drawableLeft="@android:drawable/star_on"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="程序锁"
+        android:textSize="18sp" />
 
 </LinearLayout>

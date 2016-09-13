@@ -10,6 +10,7 @@ import android.view.View;
 import com.jj.defense.R;
 import com.jj.defense.Service.AddressService;
 import com.jj.defense.Service.BlackNumberService;
+import com.jj.defense.Service.WatchDogService;
 import com.jj.defense.Utils.ConstantValue;
 import com.jj.defense.Utils.ServiceUtils;
 import com.jj.defense.Utils.SpUtils;
@@ -35,6 +36,31 @@ public class SettingActivity extends Activity {
         initToastStyle();
         initToastLocation();
         initBlackNumber();
+        initAppLock();
+    }
+
+    /**
+     * 管理程序锁服务
+     */
+    private void initAppLock() {
+        final SettingItemView siv_app_lock = (SettingItemView) findViewById(R.id.siv_app_lock);
+        boolean isRunning = ServiceUtils.isRunnig(this, "com.jj.defense.Service.WatchDogService");
+        siv_app_lock.setCheck(isRunning);
+
+        siv_app_lock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isCheck = siv_app_lock.isCheck();
+                siv_app_lock.setCheck(!isCheck);
+                if (!isCheck) {
+                    //开启看门狗服务，一直监听任务栈所打开的程序
+                    startService(new Intent(getApplicationContext(), WatchDogService.class));
+                } else {
+                    //关闭服务
+                    stopService(new Intent(getApplicationContext(), WatchDogService.class));
+                }
+            }
+        });
     }
 
     /**

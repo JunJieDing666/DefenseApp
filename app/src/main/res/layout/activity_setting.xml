@@ -43,4 +43,12 @@
         defense:deson="    黑名单拦截已开启"
         defense:titledes="黑名单拦截设置:"></com.jj.defense.View.SettingItemView>
 
+    <com.jj.defense.View.SettingItemView xmlns:defense="http://schemas.android.com/apk/res/com.jj.defense"
+        android:id="@+id/siv_app_lock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        defense:desoff="    程序锁已关闭"
+        defense:deson="    程序锁已关闭"
+        defense:titledes="程序锁设置:"></com.jj.defense.View.SettingItemView>
+
 </LinearLayout>

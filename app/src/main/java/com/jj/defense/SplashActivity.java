@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
@@ -55,6 +56,26 @@ public class SplashActivity extends AppCompatActivity {
         initUI();
         //初始化数据库文件
         initDB();
+        //生成快捷方式
+        if (!SpUtils.getBoolean(this, ConstantValue.HAS_SHORTCUT, false)) {
+            initShortCut();
+        }
+    }
+
+    private void initShortCut() {
+        Intent intent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+        //给快捷方式维护图标
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+        //名称
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "安全卫士");
+        //点击后跳转到的页面
+        Intent shortCutItent = new Intent("android.intent.action.HOME");
+        shortCutItent.addCategory("android.intent.category.DEFAULT");
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortCutItent);
+        //发送生成快捷方式的广播
+        sendBroadcast(intent);
+        //记录是否已生成快捷方式
+        SpUtils.putBoolean(this, ConstantValue.HAS_SHORTCUT, true);
     }
 
     /**
@@ -62,7 +83,9 @@ public class SplashActivity extends AppCompatActivity {
      */
     private void initDB() {
         //初始化归属地数据库
-        initAddressDB("address.db");
+        initDB("address.db");
+        //初始化常用号码数据库
+        initDB("commonnum.db");
     }
 
     /**
@@ -70,7 +93,7 @@ public class SplashActivity extends AppCompatActivity {
      *
      * @param dbName 数据库的名称
      */
-    private void initAddressDB(String dbName) {
+    private void initDB(String dbName) {
         //1.在files文件夹下创建同名文件
         File files = getFilesDir();
         File file = new File(files, dbName);

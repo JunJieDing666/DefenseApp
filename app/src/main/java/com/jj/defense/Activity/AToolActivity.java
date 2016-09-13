@@ -26,6 +26,32 @@ public class AToolActivity extends Activity {
         initPhoneAddress();
         //备份短信
         initSmsBackUp();
+        //常用号码查询
+        initCommonNumQuery();
+        //程序锁
+        initAppLock();
+    }
+
+    private void initAppLock() {
+        TextView tv_app_lock = (TextView) findViewById(R.id.tv_app_lock);
+        tv_app_lock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AppLockActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initCommonNumQuery() {
+        TextView tv_common_num_query = (TextView) findViewById(R.id.tv_common_num_query);
+        tv_common_num_query.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CommonNumQueryActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initSmsBackUp() {

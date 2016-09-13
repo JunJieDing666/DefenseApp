@@ -40,4 +40,12 @@ public class ConstantValue {
      * 记录可拖拽吐司Y坐标的key
      */
     public static final String LOCATION_Y = "location_y";
+    /**
+     * 是否显示系统应用的key
+     */
+    public static final String VISIBLE_SYSTEMPRO = "visible_systempro";
+    /**
+     * 是否有快捷方式的key
+     */
+    public static final String HAS_SHORTCUT = "has_shortcut";
 }

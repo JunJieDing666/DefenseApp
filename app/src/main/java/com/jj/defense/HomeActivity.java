@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.jj.defense.Activity.AToolActivity;
 import com.jj.defense.Activity.AppManagerActivity;
 import com.jj.defense.Activity.BlackNumListActivity;
+import com.jj.defense.Activity.ProcessManagerActivity;
 import com.jj.defense.Activity.SettingActivity;
 import com.jj.defense.Activity.SetupOverActivity;
 import com.jj.defense.Activity.TestActivity;
@@ -62,11 +63,14 @@ public class HomeActivity extends Activity {
                     case 0:
                         showDialog();
                         break;
-                    case 2:
-                        startActivity(new Intent(getApplicationContext(),AppManagerActivity.class));
-                        break;
                     case 1:
-                        startActivity(new Intent(getApplicationContext(),BlackNumListActivity.class));
+                        startActivity(new Intent(getApplicationContext(), BlackNumListActivity.class));
+                        break;
+                    case 2:
+                        startActivity(new Intent(getApplicationContext(), AppManagerActivity.class));
+                        break;
+                    case 3:
+                        startActivity(new Intent(getApplicationContext(),ProcessManagerActivity.class));
                         break;
                     case 7:
                         startActivity(new Intent(getApplicationContext(), AToolActivity.class));

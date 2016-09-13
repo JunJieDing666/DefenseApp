@@ -71,11 +71,9 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
     @Override
     protected void onResume() {
         //重弄新获取数据
-        //getData();
-        mHandler.sendEmptyMessage(0);
+        getData();
         super.onResume();
     }
-
 
 
     /**
@@ -84,11 +82,11 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
     private void initList() {
         lv_app = (ListView) findViewById(R.id.lv_app);
         tv_des = (TextView) findViewById(R.id.tv_des);
-        mSystemAppList = new ArrayList<AppInfo>();
-        mCustomerAppList = new ArrayList<AppInfo>();
 
-        getData();
 
+        //getData();
+
+        //常驻悬浮框的实现
         lv_app.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -98,10 +96,12 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 //滑动过程中替换掉标题
-                if (firstVisibleItem >= mCustomerAppList.size() + 1) {
-                    tv_des.setText("系统应用（" + mSystemAppList.size() + "）");
-                } else {
-                    tv_des.setText("用户应用（" + mCustomerAppList.size() + "）");
+                if (mCustomerAppList != null && mSystemAppList != null) {
+                    if (firstVisibleItem >= mCustomerAppList.size() + 1) {
+                        tv_des.setText("系统应用（" + mSystemAppList.size() + "）");
+                    } else {
+                        tv_des.setText("用户应用（" + mCustomerAppList.size() + "）");
+                    }
                 }
             }
         });
@@ -235,6 +235,8 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
             public void run() {
                 //找到所有应用信息的集合(耗时)
                 appInfoList = AppInfoProvider.getAppInfoList(getApplicationContext());
+                mSystemAppList = new ArrayList<AppInfo>();
+                mCustomerAppList = new ArrayList<AppInfo>();
                 for (AppInfo appinfo : appInfoList) {
                     if (appinfo.isSystemApp) {
                         mSystemAppList.add(appinfo);
