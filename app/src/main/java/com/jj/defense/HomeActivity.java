@@ -3,6 +3,7 @@ package com.jj.defense;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,13 +17,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.jj.defense.Activity.AToolActivity;
+import com.jj.defense.Activity.AntiVirusActivity;
 import com.jj.defense.Activity.AppManagerActivity;
+import com.jj.defense.Activity.BaseCacheCleanActivity;
 import com.jj.defense.Activity.BlackNumListActivity;
+import com.jj.defense.Activity.CleanCacheActivity;
 import com.jj.defense.Activity.ProcessManagerActivity;
 import com.jj.defense.Activity.SettingActivity;
 import com.jj.defense.Activity.SetupOverActivity;
 import com.jj.defense.Activity.TestActivity;
+import com.jj.defense.Activity.TrafficActivity;
 import com.jj.defense.Utils.ConstantValue;
 import com.jj.defense.Utils.Md5Utils;
 import com.jj.defense.Utils.SpUtils;
@@ -34,16 +42,26 @@ public class HomeActivity extends Activity {
     private GridView gv_home = null;
     private String[] mTitleStr = null;
     private int[] mDrawableIds = null;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        int a = 10/0;
+
         //初始化UI
         initUI();
         //初始化数据
         initData();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void initData() {
@@ -70,7 +88,16 @@ public class HomeActivity extends Activity {
                         startActivity(new Intent(getApplicationContext(), AppManagerActivity.class));
                         break;
                     case 3:
-                        startActivity(new Intent(getApplicationContext(),ProcessManagerActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ProcessManagerActivity.class));
+                        break;
+                    case 4:
+                        startActivity(new Intent(getApplicationContext(), TrafficActivity.class));
+                        break;
+                    case 5:
+                        startActivity(new Intent(getApplicationContext(), AntiVirusActivity.class));
+                        break;
+                    case 6:
+                        startActivity(new Intent(getApplicationContext(), BaseCacheCleanActivity.class));
                         break;
                     case 7:
                         startActivity(new Intent(getApplicationContext(), AToolActivity.class));
@@ -202,6 +229,46 @@ public class HomeActivity extends Activity {
 
     private void initUI() {
         gv_home = (GridView) findViewById(R.id.gv_home);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Home Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.jj.defense/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Home Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.jj.defense/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 
     class MyAdapter extends BaseAdapter {

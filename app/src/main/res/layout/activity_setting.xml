@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         defense:desoff="    程序锁已关闭"
-        defense:deson="    程序锁已关闭"
+        defense:deson="    程序锁已开启"
         defense:titledes="程序锁设置:"></com.jj.defense.View.SettingItemView>
 
 </LinearLayout>

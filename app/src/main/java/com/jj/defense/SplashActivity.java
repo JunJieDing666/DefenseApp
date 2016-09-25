@@ -86,6 +86,8 @@ public class SplashActivity extends AppCompatActivity {
         initDB("address.db");
         //初始化常用号码数据库
         initDB("commonnum.db");
+        //初始化病毒数据库
+        initDB("antivirus.db");
     }
 
     /**
